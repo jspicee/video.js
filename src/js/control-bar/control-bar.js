@@ -25,7 +25,8 @@ vjs.ControlBar.prototype.options_ = {
     'playbackRateMenuButton': {},
     'subtitlesButton': {},
     'captionsButton': {},
-    'chaptersButton': {}
+    'chaptersButton': {},
+    'laterToggle': {}
   }
 };
 

@@ -109,6 +109,7 @@ goog.exportSymbol('videojs.ControlBar', vjs.ControlBar);
 goog.exportSymbol('videojs.Button', vjs.Button);
 goog.exportSymbol('videojs.PlayToggle', vjs.PlayToggle);
 goog.exportSymbol('videojs.FullscreenToggle', vjs.FullscreenToggle);
+goog.exportSymbol('videojs.LaterToggle', vjs.LaterToggle);
 goog.exportSymbol('videojs.BigPlayButton', vjs.BigPlayButton);
 goog.exportSymbol('videojs.LoadingSpinner', vjs.LoadingSpinner);
 goog.exportSymbol('videojs.CurrentTimeDisplay', vjs.CurrentTimeDisplay);

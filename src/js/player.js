@@ -571,6 +571,25 @@ vjs.Player.prototype.onFullscreenChange = function() {
 };
 
 /**
+ * Fired when the player change orientation
+ * @event fullscreenchange
+ */
+vjs.Player.prototype.onOrientationchange = function() {
+  switch(window.orientation)
+  {
+    case -90:
+    case 90:
+      this.play();
+      this.requestFullscreen(true);
+      break;
+    default:
+      this.exitFullscreen(true);
+      this.pause();
+      break;
+  }
+};
+
+/**
  * Fired when an error occurs
  * @event error
  */
@@ -944,12 +963,14 @@ vjs.Player.prototype.isFullScreen = function(isFS){
  *
  * @return {vjs.Player} self
  */
-vjs.Player.prototype.requestFullscreen = function(){
+vjs.Player.prototype.requestFullscreen = function(nativeMode){
   var fsApi = vjs.browser.fullscreenAPI;
 
   this.isFullscreen(true);
 
-  if (fsApi) {
+  nativeMode = typeof nativeMode !== 'undefined' ? nativeMode : false;
+
+  if (!nativeMode && fsApi) {
     // the browser supports going fullscreen at the element level so we can
     // take the controls fullscreen as well as the video
 
@@ -971,7 +992,7 @@ vjs.Player.prototype.requestFullscreen = function(){
 
     this.el_[fsApi.requestFullscreen]();
 
-  } else if (this.tech.supportsFullScreen()) {
+  } else if (!nativeMode && this.tech.supportsFullScreen()) {
     // we can't take the video.js controls fullscreen but we can go fullscreen
     // with native controls
     this.techCall('enterFullScreen');
@@ -1002,14 +1023,16 @@ vjs.Player.prototype.requestFullScreen = function(){
  *
  * @return {vjs.Player} self
  */
-vjs.Player.prototype.exitFullscreen = function(){
+vjs.Player.prototype.exitFullscreen = function(nativeMode){
   var fsApi = vjs.browser.fullscreenAPI;
   this.isFullscreen(false);
 
+  nativeMode = typeof nativeMode !== 'undefined' ? nativeMode : false;
+
   // Check for browser element fullscreen support
-  if (fsApi) {
+  if (!nativeMode && fsApi) {
     document[fsApi.exitFullscreen]();
-  } else if (this.tech.supportsFullScreen()) {
+  } else if (!nativeMode && this.tech.supportsFullScreen()) {
    this.techCall('exitFullScreen');
   } else {
    this.exitFullWindow();
