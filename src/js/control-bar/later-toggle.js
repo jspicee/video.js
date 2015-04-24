@@ -13,7 +13,6 @@ vjs.LaterToggle = vjs.Button.extend({
    */
   init: function(player, options){
     vjs.Button.call(this, player, options);
-    this.on('click', this.onClick);
   }
 });
 
@@ -24,10 +23,63 @@ vjs.LaterToggle.prototype.buildCSSClass = function(){
 };
 
 vjs.LaterToggle.prototype.onClick = function(){
-  this.addClass( 'vjs-later-on-button' );
-  this.removeClass( 'vjs-later-off-button' );
+
+  var token = '';
+
+  alert( this.player_.isLaterOn() );
+
+  if (this.player_.isLaterOn() === false ){
+
+    $.ajax({
+      method: 'POST',
+      url: '/playlistprogram/create',
+      data: { program_id: this.player_.programUid_, user_id: this.player_.uuid_, playlist_id: 2, token: token }
+    }).done(function() {
+      this.player_.isLaterOn(true);
+      this.addClass( 'vjs-later-on-button' );
+      this.removeClass( 'vjs-later-off-button' );
+    });
+
+    return this.language_;
+  }else{
+    this.player_.isLaterOn(false);
+  }
 };
 
+/**
+ * is the later button in on
+ * @type {Boolean}
+ * @private
+ */
+vjs.Player.prototype.isLaterOn_ = true;
+
+vjs.Player.prototype.isLaterOn = function(isLO){
+  if (isLO !== undefined) {
+    this.isLaterOn_ = !!isLO;
+    return this;
+  }
+  return this.isLaterOn_;
+};
+
+/**
+ * The player's language code
+ * @param  {String} languageCode  The locale string
+ * @return {String}             The locale string when getting
+ * @return {vjs.Player}         self, when setting
+ */
+vjs.Player.prototype.language = function (languageCode) {
+  if (languageCode === undefined) {
+    return this.language_;
+  }
+
+  this.language_ = languageCode;
+  return this;
+};
+
+
+/*
+        data: { program_id: <% $program->id %>, user_id: <% $authUserId %>, playlist_id: 2, token: token }
+ */
 
 
 /*

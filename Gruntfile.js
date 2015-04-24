@@ -83,6 +83,11 @@ module.exports = function(grunt) {
         files: [
           {expand: true, cwd: 'build/files/', src: ['*'], dest: 'dist/'+version.full+'/', filter: 'isFile'} // includes files in path
         ]
+      },
+      test: {
+        files: [
+          {expand: true, cwd: 'dist/video-js/', src: ['*'], dest: '../spicee/public/vjs/', filter: 'isFile'}
+        ]
       }
     },
     aws_s3: {
@@ -376,7 +381,7 @@ module.exports = function(grunt) {
   grunt.registerTask('dev', ['jshint', 'less', 'vjslanguages', 'build', 'qunit:source']);
   grunt.registerTask('test-qunit', ['pretask', 'qunit']);
 
-  grunt.registerTask('dist', 'Creating distribution', ['dist-copy', 'zip:dist']);
+  grunt.registerTask('dist', 'Creating distribution', ['dist', 'zip:dist']);
 
   // Load all the tasks in the tasks directory
   grunt.loadTasks('tasks');

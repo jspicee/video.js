@@ -51,6 +51,12 @@ vjs.Player = vjs.Component.extend({
     // Update Supported Languages
     this.languages_ = options['languages'] || vjs.options['languages'];
 
+    //Update Current Program
+    this.programUid_ = options['puid'] || vjs.options['puid'];
+
+    //Update Current Program
+    this.uuid_ = options['uuid'] || vjs.options['uuid'];
+
     // Cache for video property values.
     this.cache_ = {};
 
@@ -106,6 +112,22 @@ vjs.Player = vjs.Component.extend({
     this.listenForUserActivity();
   }
 });
+
+/**
+ * The player's stored uuid
+ *
+ * @type {String}
+ * @private
+ */
+vjs.Player.prototype.uuid_;
+
+/**
+ * The player's stored program unique identifier
+ *
+ * @type {String}
+ * @private
+ */
+vjs.Player.prototype.programUid_;
 
 /**
  * The player's stored language code
@@ -525,6 +547,7 @@ vjs.Player.prototype.onEnded = function(){
     this.currentTime(0);
     this.play();
   } else if (!this.paused()) {
+    this.bigPlayButton.show();
     this.pause();
   }
 };

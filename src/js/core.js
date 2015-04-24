@@ -98,8 +98,8 @@ vjs.options = {
   'flash': {},
 
   // Default of web browser is 300x150. Should rely on source width/height.
-  'width': 300,
-  'height': 150,
+  'width': '100%',
+  'height': '100%',
   // defaultVolume: 0.85,
   'defaultVolume': 0.00, // The freakin seaguls are driving me crazy!
 
@@ -129,7 +129,14 @@ vjs.options = {
   'languages': {},
 
   // Default message to show when a video cannot be played.
-  'notSupportedMessage': 'No compatible source was found for this video.'
+  'notSupportedMessage': 'No compatible source was found for this video.',
+
+  // Program unique identification number
+  'puid': '',
+
+  // User unique identification number
+  'uuid': ''
+
 };
 
 // Set CDN Version of swf
