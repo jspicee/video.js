@@ -547,7 +547,6 @@ vjs.Player.prototype.onEnded = function(){
     this.currentTime(0);
     this.play();
   } else if (!this.paused()) {
-    this.bigPlayButton.show();
     this.pause();
   }
 };

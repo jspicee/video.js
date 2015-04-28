@@ -20,7 +20,7 @@ vjs.ControlBar.prototype.options_ = {
     'progressControl': {},
     'fullscreenToggle': {},
     'volumeControl': {},
-    'muteToggle': {},
+    //'muteToggle': {},
     // 'volumeMenuButton': {},
     'playbackRateMenuButton': {},
     'subtitlesButton': {},

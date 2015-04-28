@@ -86,7 +86,7 @@ module.exports = function(grunt) {
       },
       test: {
         files: [
-          {expand: true, cwd: 'dist/video-js/', src: ['*'], dest: '../spicee/public/vjs/', filter: 'isFile'}
+          {expand: true, cwd: 'build/files/', src: ['combined.video.js'], dest: '../spicee/public/vjs/', filter: 'isFile'}
         ]
       }
     },
@@ -378,7 +378,7 @@ module.exports = function(grunt) {
   // Default task.
   grunt.registerTask('default', ['pretask', 'dist']);
   // Development watch task
-  grunt.registerTask('dev', ['jshint', 'less', 'vjslanguages', 'build', 'qunit:source']);
+  grunt.registerTask('dev', ['jshint', 'less', 'vjslanguages', 'build', 'qunit:source', 'copy:test']);
   grunt.registerTask('test-qunit', ['pretask', 'qunit']);
 
   grunt.registerTask('dist', 'Creating distribution', ['dist', 'zip:dist']);

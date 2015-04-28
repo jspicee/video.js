@@ -26,24 +26,48 @@ vjs.LaterToggle.prototype.onClick = function(){
 
   var token = '';
 
-  alert( this.player_.isLaterOn() );
+  this.addClass( 'vjs-later-wait-button' );
+  this.removeClass( 'vjs-later-on-button' );
+  this.removeClass( 'vjs-later-off-button' );
 
   if (this.player_.isLaterOn() === false ){
 
     $.ajax({
       method: 'POST',
-      url: '/playlistprogram/create',
+      url: '/playlistprogram/add',
+      timeout: 10000,
+      context: this,
       data: { program_id: this.player_.programUid_, user_id: this.player_.uuid_, playlist_id: 2, token: token }
-    }).done(function() {
+    }).success(function() {
       this.player_.isLaterOn(true);
       this.addClass( 'vjs-later-on-button' );
-      this.removeClass( 'vjs-later-off-button' );
+      this.removeClass( 'vjs-later-wait-button' );
+    }).error(function() {
+      console.log('error');
+      this.addClass( 'vjs-later-off-button' );
+      this.removeClass( 'vjs-later-wait-button' );
     });
 
-    return this.language_;
   }else{
-    this.player_.isLaterOn(false);
+
+    $.ajax({
+      method: 'POST',
+      url: '/playlistprogram/del',
+      timeout: 10000,
+      context: this,
+      data: { program_id: this.player_.programUid_, user_id: this.player_.uuid_, playlist_id: 2, token: token, _method: 'delete' }
+    }).success(function() {
+      this.player_.isLaterOn(false);
+      this.addClass( 'vjs-later-off-button' );
+      this.removeClass( 'vjs-later-wait-button' );
+    }).error(function() {
+      console.log('error');
+      this.addClass( 'vjs-later-on-button' );
+      this.removeClass( 'vjs-later-wait-button' );
+    });
+
   }
+
 };
 
 /**
@@ -55,10 +79,15 @@ vjs.Player.prototype.isLaterOn_ = true;
 
 vjs.Player.prototype.isLaterOn = function(isLO){
   if (isLO !== undefined) {
-    this.isLaterOn_ = !!isLO;
+    this.player.isLaterOn_ = !!isLO;
     return this;
   }
-  return this.isLaterOn_;
+
+  if (this.player.isLaterOn_ === undefined) {
+    this.player.isLaterOn_ = false;
+  }
+
+  return this.player.isLaterOn_;
 };
 
 /**
@@ -67,6 +96,7 @@ vjs.Player.prototype.isLaterOn = function(isLO){
  * @return {String}             The locale string when getting
  * @return {vjs.Player}         self, when setting
  */
+/*
 vjs.Player.prototype.language = function (languageCode) {
   if (languageCode === undefined) {
     return this.language_;
@@ -75,7 +105,7 @@ vjs.Player.prototype.language = function (languageCode) {
   this.language_ = languageCode;
   return this;
 };
-
+*/
 
 /*
         data: { program_id: <% $program->id %>, user_id: <% $authUserId %>, playlist_id: 2, token: token }
