@@ -37,7 +37,7 @@ vjs.LaterToggle.prototype.onClick = function(){
       url: '/playlistprogram/add',
       timeout: 10000,
       context: this,
-      data: { program_id: this.player_.programUid_, user_id: this.player_.uuid_, playlist_id: 2, token: token }
+      data: { program_id: this.player_.programUid_, user_id: this.player_.uuid_, playlist_id: this.player_.later_, token: token }
     }).success(function() {
       this.player_.isLaterOn(true);
       this.addClass( 'vjs-later-on-button' );
@@ -55,7 +55,7 @@ vjs.LaterToggle.prototype.onClick = function(){
       url: '/playlistprogram/del',
       timeout: 10000,
       context: this,
-      data: { program_id: this.player_.programUid_, user_id: this.player_.uuid_, playlist_id: 2, token: token, _method: 'delete' }
+      data: { program_id: this.player_.programUid_, user_id: this.player_.uuid_, playlist_id: this.player_.later_, token: token, _method: 'delete' }
     }).success(function() {
       this.player_.isLaterOn(false);
       this.addClass( 'vjs-later-off-button' );

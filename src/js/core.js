@@ -135,7 +135,10 @@ vjs.options = {
   'puid': '',
 
   // User unique identification number
-  'uuid': ''
+  'uuid': '',
+
+  // Playlist Later 
+  'plid': ''
 
 };
 

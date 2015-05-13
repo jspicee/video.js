@@ -57,6 +57,9 @@ vjs.Player = vjs.Component.extend({
     //Update Current Program
     this.uuid_ = options['uuid'] || vjs.options['uuid'];
 
+    //Later Playlist
+    this.later_ = options['plid'] || vjs.options['plid'];
+
     // Cache for video property values.
     this.cache_ = {};
 
@@ -129,6 +132,13 @@ vjs.Player.prototype.uuid_;
  */
 vjs.Player.prototype.programUid_;
 
+/**
+ * The player's stored playlist later unique identifier
+ *
+ * @type {String}
+ * @private
+ */
+vjs.Player.prototype.later_;
 /**
  * The player's stored language code
  *
